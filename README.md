@@ -59,7 +59,7 @@
 
 &nbsp;
 
-# 5. isFetching vs isLoading
+# 5. `isFetching` vs `isLoading`
 
 - `isFetching`
   - 비동기 쿼리가 아직 이행되지 않음.
