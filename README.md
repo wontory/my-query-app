@@ -57,6 +57,8 @@
    - TanStack Query는 기본적으로 **세 번 시도** 후 데이터를 가져올 수 없다고 판단
 7. 쿼리가 성공하거나 오류가 났을 때를 구별해서 조치를 취할 수 있도록 **콜백을 전달**할 수 있다.
 
+&nbsp;
+
 # 5. isFetching vs isLoading
 
 - `isFetching`
@@ -64,6 +66,8 @@
 - `isLoading`
   - `isFetching`의 하위 집합
   - 캐시된 데이터 X + `isFetching`
+
+&nbsp;
 
 # 6. TanStack Query Devtools
 
@@ -74,9 +78,13 @@
 - 데이터 탐색기
 - 쿼리 탐색기
 
+&nbsp;
+
 > [!TIP]
 >
 > - 개발자 도구는 Production 환경에는 포함되지 않는다.
+
+&nbsp;
 
 # 7. `staleTime` vs `gcTime`
 
@@ -90,6 +98,8 @@
     - 데이터가 오래됐을 가능성을 허용하는 정도
   - `staleTime`의 기본값은 0
 
+&nbsp;
+
 > [!IMPORTANT]
 >
 > - `staleTime`은 데이터를 언제 다시 가져와야 하는지를 알려주고,
@@ -97,6 +107,8 @@
 >   - 데이터와 관련된 활성 `useQuery`가 없고, 데이터가 현재 페이지에 표시되지 않으면 쿼리는 `cold storage`로 들어간다.
 >   - `gcTime`이 지나면 데이터는 캐시에서 사라진다. (기본값: 5분)
 >     - 데이터가 페이지에 표시된 후부터 시간이 측정된다.
+
+&nbsp;
 
 > [!NOTE]
 >
