@@ -55,3 +55,10 @@
    - 기존 쿼리가 요청되는 동안 다른 구성 요소가 데이터를 요청하는 경우 TanStack Query는 **중복 요청을 제거**할 수 있다.
 6. 서버에서 오류가 발생하는 경우에 대한 **재시도를 관리**할 수 있다.
 7. 쿼리가 성공하거나 오류가 났을 때를 구별해서 조치를 취할 수 있도록 **콜백을 전달**할 수 있다.
+
+# 5. TanStack Query 설정
+
+1. 쿼리, 캐시, 쿼리 캐시를 조작하는 도구 등을 포함하는 `QueryClient`를 생성
+2. `QueryClientProvider` 추가
+   - `QueryClient`를 `prop`으로 받음.
+   - Provider의 자식 컴포넌트가 TanStack Query 훅을 사용
