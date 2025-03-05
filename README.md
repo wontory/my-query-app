@@ -64,3 +64,14 @@
 - `isLoading`
   - `isFetching`의 하위 집합
   - 캐시된 데이터 X + `isFetching`
+
+# 6. TanStack Query Devtools
+
+- 쿼리 키 별 쿼리
+  - 모든 쿼리의 상태
+    - 활성, 비활성, 오래됨(stale) 등
+  - 마지막으로 업데이트된 시간
+- 데이터 탐색기
+- 쿼리 탐색기
+
+- 개발자 도구는 Production 환경에는 포함되지 않는다.
