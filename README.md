@@ -161,3 +161,8 @@ const { data } = useQuery({
     - 캐시가 만료되지 않아야 함.
 - prefetch는 사용자가 원하는 모든 데이터에 사용할 수 있다.
   - 페이지네이션에만 국한되지 않음.
+
+> [!TIP]
+> prefetch된 데이터는 stale 상태이므로, 이후에 데이터를 사용할 때 자동으로 `refetch`된다.  
+> 이 때, 데이터가 캐시에 남아있는 상태라면 `isFetching`은 `true`이고 `isLoading`은 `false`가 된다.  
+> 하지만, 데이터가 캐시에 남아있지 않은 상태라면 `isLoading`이 `true`이므로, `isFetching` 역시 `true`가 된다.

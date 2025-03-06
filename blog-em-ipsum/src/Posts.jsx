@@ -22,7 +22,7 @@ export function Posts() {
     }
   }, [currentPage, queryClient]);
 
-  const { data, isLoading, isError, error } = useQuery({
+  const { data, isLoading, isFetching, isError, error } = useQuery({
     queryKey: ["posts", currentPage],
     queryFn: () => fetchPosts(currentPage),
     staleTime: 2000,
@@ -54,6 +54,7 @@ export function Posts() {
           </li>
         ))}
       </ul>
+      {isFetching && <p>Fetching in progress...</p>}
       <div className="pages">
         <button
           disabled={currentPage <= 1}
