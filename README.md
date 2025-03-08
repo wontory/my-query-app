@@ -281,8 +281,31 @@ const { data } = useQuery({
     - 구현을 변경하기로 한 경우, 훅을 업데이트하면 된다.
     - 컴포넌트를 업데이트할 필요가 없다.
 
+&nbsp;
+
 # 14. `useIsFetching`
 
 - 현재 가져오는 쿼리가 있는지 알려주는 훅
 - 각 커스텀 훅에 대해 `isFetching`을 사용할 필요가 없어진다.
 - 현재 가져오기 상태인 쿼리 호출의 수를 나타내는 정수를 반환
+
+&nbsp;
+
+# 15. `QueryCache`의 `onError` 콜백
+
+- `useIsFetching`과 같은 훅이 존재하지 않는다.
+  - 오류에 대해서는 단순한 정수 그 이상의 반환이 필요하다. (각 오류에 대한 문자열)
+  - 오류를 개별 문자열로 구현하는 방법이 불분명
+- 중앙 집중식 훅 대신, **쿼리 캐시**에 대해 설정할 수 있는 `onError` 콜백을 제공
+  - `onError`는 `QueryClient`를 생성할 때 `QueryCache`의 기본값
+  - `QueryClient`에 `QueryCache`를 추가한 다음 오류 콜백을 정의
+  ```tsx
+  const queryClient = new QueryClient({
+    queryCache: new QueryCache({
+      onError: (error) => {
+        {handle the error}
+      }
+    })
+  })
+  ```
+- 오류 콜백은 `useQuery`에서 발생하는 오류에 관계없이 전달되며 콜백 본문 내에서 오류를 처리할 수 있다.
