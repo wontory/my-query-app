@@ -1,8 +1,6 @@
-# React + Vite
+# Infinite SWAPI
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- 서버: https://swapi.dev/
+- 무한 스크롤
+  - 사용자가 스크롤 할 때마다 새로운 데이터를 적시에 가져옴
+  - 한번에 가능한 모든 데이터를 로딩하는 것보다 효율적
