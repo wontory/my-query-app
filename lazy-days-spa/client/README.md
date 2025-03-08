@@ -1,8 +1,8 @@
-# React + Vite
+# Lazy Days Spa
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- fetch 표시와 오류 처리의 중앙 집중화
+- 데이터 refetch
+- Auth 통합
+- 조건부 API에 대한 쿼리
+- 테스팅
+- `useQuery`, Mutations, 페이지네이션, prefetch 등
