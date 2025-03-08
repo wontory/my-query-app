@@ -89,7 +89,6 @@
 # 7. `staleTime` vs `gcTime`
 
 - stale
-
   - 사용 기간이 지나 다시 가져올 준비가 된 상태
   - 여전히 캐시에 존재
     - 다시 검증해야 하는 데이터
@@ -183,8 +182,89 @@ const { data } = useQuery({
       - Mutation과 관련된 캐시는 없기 때문
     - 기본적으로 재시도를 하지 않음. (변경 가능)
 
+&nbsp;
+
 1. 낙관적 업데이트
    - 서버 호출이 잘 수행됐음을 가정하고 잘 안됐을 경우 되돌리는 방법
 2. Mutation 호출을 실행할 때 업데이트된 데이터를 가져와 TanStack Query 캐시를 업데이트
 3. 관련 쿼리를 무효화
    - 클라이언트의 데이터를 서버의 데이터와 동기화하기 위해 서버에 재요청 발생
+
+&nbsp;
+
+# 12. `useInfiniteQuery`
+
+- 페이지네이션과는 다른 API 형식이 필요
+  ```json
+  {
+    "count": 37,
+    "next": "https://swapi.dev/api/species/?page=2",
+    "previous": null,
+    "results": [...]
+  }
+  ```
+
+&nbsp;
+
+> [!NOTE]
+>
+> - 페이지네이션
+>   - 현재 페이지를 컴포넌트 상태에서 추적
+> - 무한 스크롤
+>   - 다음 쿼리가 무엇이 될지 추적
+>   - 다음 쿼리는 데이터의 일부로 반환
+
+&nbsp;
+
+- `useQuery`와 반환 객체에서 반환되는 데이터 속성의 구조와 형태가 다르다.
+  - `pages`: 각 데이터 페이지를 나타내는 객체의 배열
+    - `pages` 배열의 각 요소는 `useQuery`를 사용했을 때 각각의 쿼리에서 받을 수 있는 데이터에 해당
+  - `pageParams`: 각 페이지마다 사용하는 파라미터를 기록
+- 각 쿼리는 `pages` 배열의 자신만의 요소를 가지고 있고, 그 요소는 해당 쿼리의 데이터를 나타낸다.
+- 쿼리는 페이지를 진행함에 따라 변경되고, 페이지 매개변수는 검색된 쿼리의 키를 추적한다.
+
+&nbsp;
+
+- `pageParam`은 쿼리 함수에 전달되는 매개변수
+  ```jsx
+  useInfiniteQuery({
+    queryKey: ["sw-people"],
+    queryFn: ({ pageParam = initialUrl }) => fetchUrl(pageParam),
+  });
+  ```
+  - `pageParam`의 현재 값은 TanStack Query에 의해 유지된다.
+
+&nbsp;
+
+- `useInfiniteQuery` 옵션
+  - `getNextPageParam`: (`lastPage`, `allPages`)
+    - 마지막 페이지 데이터나 모든 페이지의 데이터에서 다음 페이지를 가져오는 방법을 알려주는 함수
+    - `pageParam`을 업데이트한다.
+- `useInfiniteQuery` 반환 객체 속성
+  - `fetchNextPage`: 사용자가 더 많은 데이터를 필요로 할 때마다 호출하는 함수
+  - `hasNextPage`: `getNextPageParam` 함수의 반환 값에 기반한 `boolean` 값
+    - `getNextPageParam` 함수의 반환 값이 `undefined`면 더 이상 데이터가 없다는 것을 의미하며, `false`가 된다.
+  - `isFetchingNextPage`: 다음 페이지를 가져오는 중인지 확인할 수 있다.
+
+&nbsp;
+
+- (예시: 페이지가 2개라고 가정) `useInfiniteQuery` 흐름
+  1. 컴포넌트 마운트
+     - `{ data: undefined, pageParam: ${initialUrl} }`
+  2. `initialUrl`을 이용해 첫 번째 페이지 fetch
+     - `{ data: { pages: [...] }, pageParam: ${initialUrl} }`
+  3. `getNextPageParam` 실행 후 `pageParam` 업데이트
+     - `{ data: { pages: [...] }, pageParam: ${nextUrl} }`
+  4. `hasNextPage`가 `true`이므로, 사용자가 스크롤하거나 버튼을 클릭하면 `fetchNextPage` 함수를 실행
+     - `{ data: { pages: [..., ...] }, pageParam: ${nextUrl} }`
+  5. `getNextPageParam` 실행 후 `pageParam` 업데이트
+     - `{ data: { pages: [..., ...] }, pageParam: undefined }`
+  6. `hasNextPage`가 `undefined`이므로, 데이터 수집 종료
+     - `{ data: { pages: [..., ...] }, pageParam: undefined }`
+
+&nbsp;
+
+- 양방향 스크롤
+  - 데이터의 중간부터 시작할 때 유용
+  - 모든 `next` 메서드들(`fetchNextPage`, `hasNextPage`, `getNextPageParam` 등)과 동일한 `previous`를 사용하는 함수들이 존재
+    - 이전 페이지에 대해서도 동일한 기능을 수행할 수 있다.
