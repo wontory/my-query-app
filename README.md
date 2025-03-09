@@ -368,3 +368,11 @@ const { data } = useQuery({
   - **자주 변경되지 않고 약간 오래되어도 사용자에게 큰 영향을 미치지 않는 데이터에 대해서만 수행해야 한다.**
   - `refetch`를 억제함으로써 네트워크 호출을 절약할 수 있지만, 그만한 가치가 있는지 고민해야 한다.
     > _**"How is the data on the screen always up to date?" is a much better question to be asking than "Why is my data not updating?"** - Tanner Linsley_
+
+&nbsp;
+
+# 19. `enabled`, `setQueryData`, `removeQueries`
+
+- `enabled`: `boolean`, 쿼리의 활성화 여부를 결정하며 `false`일 경우 쿼리 함수는 실행되지 않는다.
+- `setQueryData`: `QueryClient`를 통해 사용, 객체의 인수가 아닌 순서가 있는 인수를 사용한다. (`queryClient.setQueryData(queryKey, data)`)
+- `removeQueries`: `QueryClient`를 통해 사용, 쿼리 필터를 사용하며 쿼리 필터의 쿼리 키로 시작하는 모든 쿼리를 제거한다. (`queryClient.removeQueries({ queryKey: [...queryKeys] });`)
