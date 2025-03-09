@@ -320,3 +320,18 @@ const { data } = useQuery({
 | `setQueryData`    | `queryClient` 메서드 | 클라이언트  | O         |
 | `placeholderData` | `useQuery` 옵션      | 클라이언트  | X         |
 | `initialData`     | `useQuery` 옵션      | 클라이언트  | O         |
+
+&nbsp;
+
+# 17. `useQuery`의 `select` 옵션
+
+- 쿼리 함수에서 반환되는 데이터를 변환할 수 있다.
+- TanStack Query는 불필요한 계산을 줄이기 위해 memoize를 수행
+  - TanStack Query는 `select` 함수의 삼중 등호 비교를 수행
+  - 데이터가 변경되거나 함수가 변경된 경우에만 `select` 함수를 실행
+- `select` 함수를 위해 안정적인 함수가 필요
+  - 매번 변경되는 익명 함수를 사용할 수 없음.
+  - `useCallback`을 사용
+- `prefetchQuery`에는 `select`를 사용하지 않음.
+  - `select` 함수는 데이터 표시용으로 캐시에 있는 내용을 변경하지 않는다.
+  - `useQuery`가 호출되면 데이터를 변환
