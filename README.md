@@ -388,3 +388,23 @@ const { data } = useQuery({
 - `enabled`: `boolean`, 쿼리의 활성화 여부를 결정하며 `false`일 경우 쿼리 함수는 실행되지 않는다.
 - `setQueryData`: `QueryClient`를 통해 사용, 객체의 인수가 아닌 순서가 있는 인수를 사용한다. (`queryClient.setQueryData(queryKey, data)`)
 - `removeQueries`: `QueryClient`를 통해 사용, 쿼리 필터를 사용하며 쿼리 필터의 쿼리 키로 시작하는 모든 쿼리를 제거한다. (`queryClient.removeQueries({ queryKey: [...queryKeys] });`)
+
+&nbsp;
+
+# 20. `invalidateQueries`
+
+- `QueryClient`에는 `invalidateQueries` 메서드가 있어 데이터의 캐시를 무효화할 수 있다.
+  - 사용자가 페이지를 새로고침할 필요 없이 바로 업데이트된 정보를 볼 수 있게 된다.
+- `invalidateQueries`의 효과
+  - 쿼리를 오래된 것으로 표시(stale)
+  - 쿼리가 현재 렌더링되고 있다면 `refetch`를 트리거
+
+&nbsp;
+
+- 쿼리 필터
+  - 쿼리 클라이언트 메서드는 한 번에 여러 쿼리에 영향을 줄 수 있다.
+    - `removeQueries`, `invalidateQueries`, `cancelQueries` 등
+  - 쿼리 필터 인자를 받으며, 특정 필터에 의해 쿼리를 지정한다.
+    - 쿼리 키 (부분 일치, 쿼리 키의 시작 부분)
+    - 쿼리의 유형: 활성화, 비활성화 또는 전체
+    - 쿼리가 오래되었는지, `isFetching` 상태 등
