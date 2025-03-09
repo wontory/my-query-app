@@ -335,3 +335,30 @@ const { data } = useQuery({
 - `prefetchQuery`에는 `select`를 사용하지 않음.
   - `select` 함수는 데이터 표시용으로 캐시에 있는 내용을 변경하지 않는다.
   - `useQuery`가 호출되면 데이터를 변환
+
+&nbsp;
+
+# 18. `refetch`를 수행해야 할 때와 그 이유
+
+- **Background Prefetching:** 오래된 데이터를 서버에서 업데이트
+- 오래된 쿼리는 특정 조건에 따라 백그라운드에서 자동으로 `refetch`
+  - 쿼리의 새 인스턴스가 마운트될 때 (해당 키가 포함된 쿼리가 처음으로 호출될 때)
+  - (`useQuery`를 포함하는) React 컴포넌트를 마운트할 때
+  - 창이 다시 포커싱될 때
+  - 네트워크가 다시 연결될 때
+  - 구성한 `refetchInterval`이 경과됐을 때
+    - polling 등
+- `QueryClient`에 대해 전역적으로, 또는 `useQuery` 호출에 대해 특정하여 제어할 수 있다.
+  - `refetchOnMount`: `boolean`
+  - `refetchOnWindowFocus`: `boolean`
+  - `refetchOnReconnect`: `boolean`
+  - `refetchInterval`: ms(밀리초) 단위 시간
+- `useQuery`의 반환 객체에 포함된 `refetch` 함수를 사용해 명령형으로 수행할 수도 있다
+- `refetch` 억제
+  - 방법
+    1. `staleTime`을 증가시키기
+       - `gcTime`은 `staleTime`보다 길어야 한다.
+    2. `refetchOnMount`, `refetchOnWindowFocus`, `refetchOnReconnect` 옵션을 끄기
+  - **자주 변경되지 않고 약간 오래되어도 사용자에게 큰 영향을 미치지 않는 데이터에 대해서만 수행해야 한다.**
+  - `refetch`를 억제함으로써 네트워크 호출을 절약할 수 있지만, 그만한 가치가 있는지 고민해야 한다.
+    > _**"How is the data on the screen always up to date?" is a much better question to be asking than "Why is my data not updating?"** - Tanner Linsley_
