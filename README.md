@@ -309,3 +309,14 @@ const { data } = useQuery({
   })
   ```
 - 오류 콜백은 `useQuery`에서 발생하는 오류에 관계없이 전달되며 콜백 본문 내에서 오류를 처리할 수 있다.
+
+&nbsp;
+
+# 16. 데이터를 미리 채우는 방법
+
+|                   | 사용하는 곳          | 데이터 원천 | 캐시 여부 |
+| ----------------- | -------------------- | ----------- | --------- |
+| `prefetchQuery`   | `queryClient` 메서드 | 서버        | O         |
+| `setQueryData`    | `queryClient` 메서드 | 클라이언트  | O         |
+| `placeholderData` | `useQuery` 옵션      | 클라이언트  | X         |
+| `initialData`     | `useQuery` 옵션      | 클라이언트  | O         |
