@@ -178,7 +178,7 @@ const { data } = useQuery({
   - `useQuery`와 비슷하지만,
     - `mutate` 함수를 반환
     - 쿼리 키를 필요로 하지 않음.
-    - `isLoading`(`isPending`)만 제공 (`isFetching` X)
+    - `isFetching`(`isPending`)만 제공 (`isLoading` X)
       - Mutation과 관련된 캐시는 없기 때문
     - 기본적으로 재시도를 하지 않음. (변경 가능)
 
