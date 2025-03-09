@@ -348,12 +348,18 @@ const { data } = useQuery({
   - 네트워크가 다시 연결될 때
   - 구성한 `refetchInterval`이 경과됐을 때
     - polling 등
+
+&nbsp;
+
 - `QueryClient`에 대해 전역적으로, 또는 `useQuery` 호출에 대해 특정하여 제어할 수 있다.
   - `refetchOnMount`: `boolean`
   - `refetchOnWindowFocus`: `boolean`
   - `refetchOnReconnect`: `boolean`
   - `refetchInterval`: ms(밀리초) 단위 시간
 - `useQuery`의 반환 객체에 포함된 `refetch` 함수를 사용해 명령형으로 수행할 수도 있다
+
+&nbsp;
+
 - `refetch` 억제
   - 방법
     1. `staleTime`을 증가시키기
