@@ -433,4 +433,5 @@ const { data } = useQuery({
   - 변이 데이터를 식별할 수 있도록 `mutationKey`를 제공
   - 변이가 진행 중인 동안 페이지에 변이된 데이터를 표시
   - 변이가 해결된 후, 쿼리를 무효화
+    - `onSettled`: `onSuccess` + `onError`
     - 변이가 실패하면 변이 이전의 오래된 데이터를 가져온다.
